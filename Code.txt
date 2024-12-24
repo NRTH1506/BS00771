@@ -1,0 +1,117 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Student class
+class Student {
+    private String studentID;
+    private String fullName;
+    private int age;
+    private double score;
+
+    public Student(String studentID, String fullName, int age, double score) {
+        this.studentID = studentID;
+        this.fullName = fullName;
+        this.age = age;
+        this.score = score;
+    }
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getscore() {
+        return score;
+    }
+
+    @Override
+    public String toString() {
+        return "Student ID: " + studentID + ", Full Name: " + fullName + ", Age: " + age + ", Score: " + score;
+    }
+}
+
+// StudentManagement class
+public class StudentManagement {
+    private ArrayList<Student> studentList;
+
+    public StudentManagement() {
+        studentList = new ArrayList<>();
+    }
+
+    public void addStudent(Student student) {
+        studentList.add(student);
+    }
+
+    public void displayStudentList() {
+        for (Student student : studentList) {
+            System.out.println(student);
+        }
+    }
+
+    public Student searchStudent(String fullName) {
+        for (Student student : studentList) {
+            if (student.getFullName().equalsIgnoreCase(fullName)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        StudentManagement sm = new StudentManagement();
+
+        while (true) {
+            System.out.println("1. Add student");
+            System.out.println("2. Display student list");
+            System.out.println("3. Search student by name");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter student ID: ");
+                    String studentID = scanner.nextLine();
+                    System.out.print("Enter full name: ");
+                    String fullName = scanner.nextLine();
+                    System.out.print("Enter age: ");
+                    int age = scanner.nextInt();
+                    System.out.print("Enter Score: ");
+                    double gpa = scanner.nextDouble();
+                    scanner.nextLine(); // Consume the newline
+                    Student student = new Student(studentID, fullName, age, score);
+                    sm.addStudent(student);
+                    break;
+                case 2:
+                    sm.displayStudentList();
+                    break;
+                case 3:
+                    System.out.print("Enter student name to search: ");
+                    String name = scanner.nextLine();
+                    Student result = sm.searchStudent(name);
+                    if (result != null) {
+                        System.out.println("Student found: " + result);
+                    } else {
+                        System.out.println("No student found with the name: " + name);
+                    }
+                    break;
+                case 4:
+                    System.out.println("Program ended.");
+                    scanner.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+}
